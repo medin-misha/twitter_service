@@ -12,7 +12,12 @@ async def save_image(name: str, file: bytes, session: AsyncSession) -> RowMappin
     async with httpx.AsyncClient() as client:
         response = await client.post(
             config.image_saver_url + "image/",
-            files={"image": (name, file,)},
+            files={
+                "image": (
+                    name,
+                    file,
+                )
+            },
         )
     filename = response.text.replace('"', "")
 
@@ -29,9 +34,3 @@ async def get_image(filename: str):
     async with httpx.AsyncClient() as client:
         response = await client.get(config.image_saver_url + "images/" + filename)
     return response.content
-
-
-async def save_image_in_filesystem(name: str, saved_file: bytes):
-    with open(f"static/{name}", "wb") as file:
-        # print(saved_file.filename)
-        file.write(saved_file)

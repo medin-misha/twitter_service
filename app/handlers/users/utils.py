@@ -29,7 +29,7 @@ async def following(session: AsyncSession, author_id: int, follower_id: int) -> 
 
 
 async def get_user_by_id(session: AsyncSession, id: int) -> OneUser | None:
-    if not 0 < id < 10*5:
+    if not 0 < id < 10 * 5:
         return None
     result = await session.execute(
         select(User)

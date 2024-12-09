@@ -26,6 +26,7 @@ async def get_by_id(
         return select_result.mappings().one_or_none()
     return None
 
+
 async def get_list(session: AsyncSession, model: Image | User | Tweet) -> List[dict]:
     stmt = select(model).options(selectinload("*")).order_by(model.id)
     select_result: Result = await session.execute(stmt)

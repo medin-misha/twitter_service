@@ -44,9 +44,20 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  image_saver:
+    build:
+      context: ./image_saver
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./imgs/:/app/images
+    ports:
+      - 9000:80
 volumes:
   pgdata:
     driver: local
+
+
 
 networks:
   twitter:
