@@ -6,6 +6,9 @@
 ```commandline
 sudo systemctl enable docker
 ```
+
+Далее убедитесь что в ./image_saver есть само приложение. Если его нет то скачайте его репозиторий: https://github.com/medin-misha/image_saver.git
+
 Команда для заупска всего этого дела:
 ```commandline
 docker-compose up --build
