@@ -1,0 +1,43 @@
+@import './base.css';
+
+body {
+  background-color: #15202b;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-style: normal;
+}
+
+h1 {
+  font-size: 28px;
+  font-family: sans-serif;
+  font-style: normal;
+}
+h2 {
+  font-size: 25px;
+  font-family: sans-serif;
+  font-style: italic;
+}
+p {
+  font-size: 18px;
+  font-family: "JetBrains Mono", monospace;
+}
+.flex {
+  display: flex;
+}
+
+button {
+  padding: .4em 1em;
+  background: linear-gradient(90deg, #2196f3 0%, #03a9f4 100%);
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  box-shadow: none;
+  transition: opacity 0.3s ease;
+
+
+}
+button:active {
+  background: linear-gradient(90deg, #2196f3 0%, #03a9f4 100%);
+  opacity: 80%;
+}
+
