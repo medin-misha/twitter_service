@@ -9,6 +9,19 @@ sudo systemctl enable docker
 
 Далее убедитесь что в ./image_saver есть само приложение. Если его нет то скачайте его репозиторий: https://github.com/medin-misha/image_saver.git
 
+Теперь заходем в ./app/run.sh и пишем сюда следуйщий код:
+```sh
+#!/bin/sh
+
+export postgres_user=postgres_user
+export postgres_password=postgres_password
+export postgres_host=<твой ip или ip postrgers>:5432/postgres_db
+# Выполнение миграций
+alembic upgrade head
+
+# Запуск приложения
+uvicorn main:app --reload --host 0.0.0.0 --port 8000 --reload
+```
 Команда для заупска всего этого дела:
 ```commandline
 docker-compose up --build

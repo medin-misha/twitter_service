@@ -55,7 +55,7 @@ async def test_not_found_users_get_id():
     async with AsyncClient(
         transport=ASGITransport(app=main.app), base_url="http://test/"
     ) as client:
-        response: Response = await client.get(f"api/users/{10 ** 3}")
+        response: Response = await client.get(f"api/users/{10**3}")
         assert response.status_code == 404
         assert response.json().get("result") is False
         assert response.json().get("user") is None

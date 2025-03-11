@@ -6,7 +6,7 @@ import main
 
 
 async def user(client: AsyncClient) -> Response:
-    user_creating = {"name": "misha", "key": f"{random.randint(10 ** 10, 10 ** 12)}"}
+    user_creating = {"name": "misha", "key": f"{random.randint(10**10, 10**12)}"}
 
     user_create: Response = await client.post(url="api/users/", json=user_creating)
 

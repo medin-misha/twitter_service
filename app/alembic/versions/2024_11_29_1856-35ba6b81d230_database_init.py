@@ -1,7 +1,7 @@
 """database init
 
 Revision ID: 35ba6b81d230
-Revises: 
+Revises:
 Create Date: 2024-11-29 18:56:39.962368
 
 """

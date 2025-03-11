@@ -11,4 +11,6 @@ async def get_image(filename: str):
     status_code = response.status_code
     if status_code != 200:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
-    return StreamingResponse(iter([response.content]), media_type=f"image/{filename.split('.')[-1]}")
+    return StreamingResponse(
+        iter([response.content]), media_type=f"image/{filename.split('.')[-1]}"
+    )

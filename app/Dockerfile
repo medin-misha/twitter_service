@@ -9,12 +9,11 @@ COPY core /app/core
 COPY handlers /app/handlers
 COPY tests /app/tests
 COPY main.py /app/
-COPY entrypoint.sh /app
+COPY run.sh /app
 
-ENV db_url postgresql+asyncpg://postgres_user:postgres_password@192.168.5.194:5432/postgres_db
-ENV image_saver_url http://192.168.5.194:9000/
+EXPOSE 8000
 
 WORKDIR /app
-RUN chmod +x entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+RUN chmod +x run.sh
+ENTRYPOINT ["/app/run.sh"]
 

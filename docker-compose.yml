@@ -9,8 +9,6 @@ services:
       POSTGRES_PASSWORD: postgres_password
       POSTGRES_DB: postgres_db
       PGDATA: /var/lib/postgresql/data/pgdata
-    networks:
-      - twitter
     ports:
       - "5432:5432"
     expose:
@@ -40,7 +38,9 @@ services:
       context: ./app
       dockerfile: ./Dockerfile
     ports:
-      - 8000:8000
+      - "8000:8000"
+    expose:
+      - "8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -53,12 +53,3 @@ services:
       - ./imgs/:/app/images
     ports:
       - 9000:80
-volumes:
-  pgdata:
-    driver: local
-
-
-
-networks:
-  twitter:
-    driver: bridge

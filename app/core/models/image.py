@@ -1,5 +1,5 @@
 """
-файл для модели image    
+файл для модели image
 """
 
 from sqlalchemy.orm import Mapped, mapped_column
