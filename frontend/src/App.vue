@@ -1,8 +1,10 @@
 <script setup>
 import Main from "./components/Main.vue"
+import Menu from "./components/Menu.vue";
 </script>
 <template>
   <div class="container flex">
+    <Menu/>
     <Main/>
   </div>
 </template>
