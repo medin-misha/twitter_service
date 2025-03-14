@@ -1,5 +1,5 @@
 <script setup>
-
+import LoginComponent from './subcomponents/LoginComponent.vue';
 </script>
 
 <template >
@@ -7,6 +7,7 @@
         <li class="navbar-li flex navbar-main"><span class="navbar-li-span">Главная</span></li>
         <li class="navbar-li flex navbar-profile"><span class="navbar-li-span">Профиль</span></li>
         <button class="create-tweet-button">Твитнуть</button>
+        <LoginComponent/>
     </nav>
 </template>
 
@@ -27,7 +28,8 @@
         margin-bottom: 20px;
         transition: border 0.3s ease;
         background-position-y: 24px;
-        border-bottom: #36434d solid 1px;
+        border-bottom: #36434d solid 2px;
+
     }
     .navbar-main {
         background: url("public/homeIcon.svg") no-repeat;
@@ -43,6 +45,6 @@
         display: block;
     }
     .navbar-li:hover {
-        border-bottom: #2196f3 1px solid;
+        border-bottom: #2196f3 2px solid;
     }
 </style>

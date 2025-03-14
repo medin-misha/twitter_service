@@ -1,4 +1,8 @@
 <script setup>
+import { useLoginStore } from '@/stores/useLoginStore';
+import { storeToRefs } from 'pinia';
+
+const refStore = storeToRefs(useLoginStore())
 </script>
 
 <template>
@@ -31,12 +35,14 @@
 .create-comment-section {
     padding-top: 1em;
 }
+
 .create-comment-textarea {
     all: unset;
 }
+
 .create-comment-textarea {
     border: none;
-    background-color:#15202b;
+    background-color: #15202b;
     padding: 10px;
     max-width: 100%;
     line-height: 1.5;

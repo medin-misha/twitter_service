@@ -1,11 +1,12 @@
 <script setup>
-
+import { useLoginStore } from '@/stores/useLoginStore';
+const loginStore = useLoginStore()
 </script>
 
 <template >
     <header class="flex">
         <h1>Клон Твиттера</h1>
-        <h2 class="header-h2">Главная <<<</h2>
+        <h2 class="header-h2">{{ loginStore.userName }} <<<</h2>
     </header>
 </template>
 
