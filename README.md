@@ -1,4 +1,4 @@
-## не жалкий клон твиттера
+\## не жалкий клон твиттера
 Корпоративный клон твиттера с отсутствующей регистрацией. Вот как то так.
 ## как запустить? 
 Запуск производиться невероятно просто. 
@@ -16,6 +16,8 @@ sudo systemctl enable docker
 export postgres_user=postgres_user
 export postgres_password=postgres_password
 export postgres_host=<твой ip или ip postrgers>:5432/postgres_db
+
+export image_service_host=http://192.168.5.197:9000/
 # Выполнение миграций
 alembic upgrade head
 
