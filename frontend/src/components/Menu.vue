@@ -13,7 +13,7 @@ import LoginComponent from './subcomponents/LoginComponent.vue';
 
 <style scoped>
     .navbar {
-        height: 1300px;
+        height: 1000px;
         width: 400px;
         border: 1px solid #36434d;
         flex-direction: column;

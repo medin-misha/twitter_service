@@ -12,10 +12,11 @@ import Menu from "./components/Menu.vue";
 <style scoped>
   .container {
     width: 1200px;
-    height: 1300px;
+    height: 1000px;
     background: none;
     border: 1px solid #36434d;
     flex-direction: row;
     justify-content:flex-end;
+    margin: auto;
   }
 </style>
