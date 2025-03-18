@@ -6,7 +6,7 @@ const loginStore = useLoginStore()
 <template >
     <header class="flex">
         <h1>Клон Твиттера</h1>
-        <h2 class="header-h2">{{ loginStore.userName }} <<<</h2>
+        <h2 class="header-h2">{{ loginStore.key }} <<<</h2>
     </header>
 </template>
 

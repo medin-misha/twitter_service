@@ -7,8 +7,18 @@ import { storeToRefs } from 'pinia';
 const refStore = storeToRefs(useLoginStore())
 const apiStore = useAPIStore()
 const tweetText = ref("");
+
 const tweetMediaIds = [];
 
+const inputFile = async (event) => {
+    const response = await apiStore.saveMedia(event.target.files[0], refStore.key.value)
+    if (response.result) {
+        tweetMediaIds.push(response.media_id)
+    } else {
+        console.log(response)
+    }
+    return response;
+}
 
 const createComment = async () => {
     const createTweetData = {
@@ -40,7 +50,7 @@ const createComment = async () => {
                             d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
                     </svg>
                 </label>
-                <input type="file" id="input-image" class="input-image">
+                <input type="file" id="input-image" class="input-image" @change="inputFile">
             </div>
             <button class="create-comment-button" type="button" @click="createComment()">отправить</button>
         </form>

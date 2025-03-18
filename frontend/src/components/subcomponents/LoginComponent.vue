@@ -7,8 +7,38 @@ import { storeToRefs } from 'pinia';
 const refStore = storeToRefs(useLoginStore())
 const apiStore = useAPIStore()
 const key = ref("");
-const loginMessage = ref("аутентифицируйтесь..")
 
+const isLoginTextStatus = {
+    isError: false,
+    class: ref("login-message"),
+    message: ref("аутентифицируйтесь.."),
+    defaultClass: "login-message",
+    successClass: "success-login-message",
+    errorClass: "error-login-message",
+    loginMessage: "аутентифицируйтесь..",
+    loginError: "такой пользователь не найден",
+    loginSuccess: "Вы аутентифицированны!",
+    errorColor: "#dd1818",
+    successColor: "#8f94fb",
+    defaultColor: "#2196f3"
+}
+
+const errorLoginMessage = (isOk) => {
+    if (isOk == true) {
+        isLoginTextStatus.class.value = isLoginTextStatus.successClass
+        isLoginTextStatus.message.value = isLoginTextStatus.loginSuccess
+        setTimeout(() => {
+            isLoginTextStatus.class.value = isLoginTextStatus.defaultClass
+        }, 1000)
+    } else {
+        isLoginTextStatus.class.value = isLoginTextStatus.errorClass
+        isLoginTextStatus.message.value = isLoginTextStatus.loginError
+        setTimeout(() => {
+            isLoginTextStatus.class.value = isLoginTextStatus.defaultClass
+            isLoginTextStatus.message.value = isLoginTextStatus.loginMessage
+        }, 3000)
+    }
+}
 
 const getMeApiKey = async (key) => {
 
@@ -19,11 +49,11 @@ const getMeApiKey = async (key) => {
             const userName = meResponse.user.name;
             refStore.key.value = key;
             refStore.userName = userName
-            loginMessage.value = `Привет ${userName}`
+            errorLoginMessage(true)
         }
         return null;
     } else {
-        loginMessage.value = "такой пользователь не найден"
+        errorLoginMessage(false)
     }
 
 }
@@ -32,7 +62,7 @@ const getMeApiKey = async (key) => {
 
 <template>
     <section class="login-section flex">
-        <p class="login-message">{{ loginMessage }}</p>
+        <p :class="isLoginTextStatus.class.value">{{ isLoginTextStatus.message.value }}</p>
         <input type="text" class="api-key-input" placeholder="api-key" v-model="key">
         <button @click="getMeApiKey(key)" class="login-button">Авторизоваться</button>
     </section>
@@ -56,8 +86,22 @@ const getMeApiKey = async (key) => {
     margin-bottom: 10px;
     color: white;
 }
+
 .login-message {
+    transition: 5s;
     color: #2196f3;
+    align-self: flex-end;
+}
+
+.error-login-message {
+    transition: .3s;
+    color: rgb(255, 71, 71);
+    align-self: flex-end;
+}
+
+.success-login-message {
+    transition: .3s;
+    color: rgb(96, 255, 96);
     align-self: flex-end;
 }
 </style>

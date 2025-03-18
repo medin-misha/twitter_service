@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 
 
 export const useLoginStore = defineStore("userData", {
-    state: () => ({ key: "miszxha", userName: "none"}),
+    state: () => ({ key: "noAuth", userName: "none"}),
     getters: {},
     actions: {},
 })

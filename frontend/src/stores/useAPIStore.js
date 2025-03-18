@@ -16,7 +16,6 @@ export const useAPIStore = defineStore("api", {
         console.error("Ошибка при получении данных пользователя:", error);
         return null;
       }
-
     },
     async createTweet(data, key) {
       const response = await axios.post(this.url + "api/tweets", data, {
@@ -27,5 +26,17 @@ export const useAPIStore = defineStore("api", {
       });
       return response.data;
     },
+    async getTweets(key) {
+      const response = await axios.get(this.url + "api/tweets", {
+        headers: { "api-key": key },
+      });
+      return response.data;
+    },
+    async saveMedia(file, key) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await axios.post(this.url + "api/medias", formData, { headers: {"Content-Type": "multipart/form-data", "api-key": key} });
+      return response.data;
+    }
   },
 });
