@@ -3,42 +3,14 @@ import { ref } from "vue";
 import { useLoginStore } from '@/stores/useLoginStore';
 import { useAPIStore } from "@/stores/useAPIStore";
 import { storeToRefs } from 'pinia';
+import { useLoginComponentStore } from "../componentStores/loginComponentStore";
+
 
 const refStore = storeToRefs(useLoginStore())
 const apiStore = useAPIStore()
+const componentStore = useLoginComponentStore()
 const key = ref("");
 
-const isLoginTextStatus = {
-    isError: false,
-    class: ref("login-message"),
-    message: ref("аутентифицируйтесь.."),
-    defaultClass: "login-message",
-    successClass: "success-login-message",
-    errorClass: "error-login-message",
-    loginMessage: "аутентифицируйтесь..",
-    loginError: "такой пользователь не найден",
-    loginSuccess: "Вы аутентифицированны!",
-    errorColor: "#dd1818",
-    successColor: "#8f94fb",
-    defaultColor: "#2196f3"
-}
-
-const errorLoginMessage = (isOk) => {
-    if (isOk == true) {
-        isLoginTextStatus.class.value = isLoginTextStatus.successClass
-        isLoginTextStatus.message.value = isLoginTextStatus.loginSuccess
-        setTimeout(() => {
-            isLoginTextStatus.class.value = isLoginTextStatus.defaultClass
-        }, 1000)
-    } else {
-        isLoginTextStatus.class.value = isLoginTextStatus.errorClass
-        isLoginTextStatus.message.value = isLoginTextStatus.loginError
-        setTimeout(() => {
-            isLoginTextStatus.class.value = isLoginTextStatus.defaultClass
-            isLoginTextStatus.message.value = isLoginTextStatus.loginMessage
-        }, 3000)
-    }
-}
 
 const getMeApiKey = async (key) => {
 
@@ -49,11 +21,11 @@ const getMeApiKey = async (key) => {
             const userName = meResponse.user.name;
             refStore.key.value = key;
             refStore.userName = userName
-            errorLoginMessage(true)
+            componentStore.successLogin()
         }
         return null;
     } else {
-        errorLoginMessage(false)
+        componentStore.errorLogin()
     }
 
 }
@@ -62,7 +34,7 @@ const getMeApiKey = async (key) => {
 
 <template>
     <section class="login-section flex">
-        <p :class="isLoginTextStatus.class.value">{{ isLoginTextStatus.message.value }}</p>
+        <p :class="componentStore.class_">{{ componentStore.text }}</p>
         <input type="text" class="api-key-input" placeholder="api-key" v-model="key">
         <button @click="getMeApiKey(key)" class="login-button">Авторизоваться</button>
     </section>
