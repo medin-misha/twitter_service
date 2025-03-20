@@ -1,65 +1,34 @@
 <script setup>
-import { ref } from "vue"
-import { useLoginStore } from '@/stores/useLoginStore';
-import { useAPIStore } from "@/stores/useAPIStore";
-import { storeToRefs } from 'pinia';
+import { useTweetFormComponentStore } from "../componentStores/tweetFormComponentStroe";
 
-const refStore = storeToRefs(useLoginStore())
-const apiStore = useAPIStore()
-const tweetText = ref("");
+const tweetStore = useTweetFormComponentStore()
 
-const tweetMediaIds = [];
-
-const inputFile = async (event) => {
-    const response = await apiStore.saveMedia(event.target.files[0], refStore.key.value)
-    if (response.result) {
-        tweetMediaIds.push(response.media_id)
-    } else {
-        console.log(response)
-    }
-    return response;
-}
-
-const createComment = async () => {
-    const createTweetData = {
-        tweet_data: tweetText.value,
-        tweet_media_ids: tweetMediaIds,
-    }
-    console.log(`refStore.key.value: ${refStore.key.value}`)
-    console.log(`createTweetData: `, createTweetData)
-    const response = await apiStore.createTweet(createTweetData, refStore.key.value)
-}
 </script>
 
 <template>
     <section class="create-comment-section">
         <form class="flex create-comment-form">
-            <div class="flex">
-                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"
-                    style="width: 3em; height: 3em;vertical-align: middle;fill: #36434d;overflow: hidden;"
-                    viewBox="0 0 1024 1024" version="1.1">
-                    <path
-                        d="M843.282963 870.115556c-8.438519-140.515556-104.296296-257.422222-233.908148-297.14963C687.881481 536.272593 742.4 456.533333 742.4 364.088889c0-127.241481-103.158519-230.4-230.4-230.4S281.6 236.847407 281.6 364.088889c0 92.444444 54.518519 172.183704 133.12 208.877037-129.611852 39.727407-225.46963 156.634074-233.908148 297.14963-0.663704 10.903704 7.964444 20.195556 18.962963 20.195556l0 0c9.955556 0 18.299259-7.774815 18.962963-17.73037C227.745185 718.506667 355.65037 596.385185 512 596.385185s284.254815 122.121481 293.357037 276.195556c0.568889 9.955556 8.912593 17.73037 18.962963 17.73037C835.318519 890.311111 843.946667 881.019259 843.282963 870.115556zM319.525926 364.088889c0-106.287407 86.186667-192.474074 192.474074-192.474074s192.474074 86.186667 192.474074 192.474074c0 106.287407-86.186667 192.474074-192.474074 192.474074S319.525926 470.376296 319.525926 364.088889z" />
-                </svg>
+            <div class="flex create-comment-fields">
                 <textarea placeholder="Ну шо ты?" name="create-comment-textarea" class="create-comment-textarea"
-                    v-model="tweetText" cols="73" rows="5"></textarea>
+                    v-model="tweetStore.tweet_data" cols="50" rows="5"></textarea>
                 <label for="input-image">
-                    <svg class="input-file-svg" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    <img class="user-input-image" v-if="tweetStore.file" :src="tweetStore.fileUrl" alt="you img">
+                    <svg v-if="!tweetStore.file" class="input-file-svg" xmlns="http://www.w3.org/2000/svg" height="24px"
                         viewBox="0 -960 960 960" width="24px" fill="#36434d">
                         <path
                             d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm40-80h480L570-480 450-320l-90-120-120 160Zm-40 80v-560 560Z" />
                     </svg>
                 </label>
-                <input type="file" id="input-image" class="input-image" @change="inputFile">
+                <input type="file" id="input-image" class="input-image" @change="tweetStore.saveFile">
             </div>
-            <button class="create-comment-button" type="button" @click="createComment()">отправить</button>
+            <button class="create-comment-button" type="button" @click="tweetStore.createTweet()">отправить</button>
         </form>
     </section>
 </template>
 
 <style scoped>
 .create-comment-section {
-    padding-top: 1em;
+    padding-top: .3em;
 }
 
 .create-comment-textarea {
@@ -82,6 +51,11 @@ const createComment = async () => {
 
 }
 
+.create-comment-fields {
+    justify-content: space-around;
+    align-content: center;
+}
+
 .create-comment-button {
     border-radius: 0;
     border-top: 2px solid #36434d;
@@ -98,5 +72,10 @@ const createComment = async () => {
 .input-file-svg:hover {
     transition: .1s;
     transform: scaleX(1.2) scaleY(1.2);
+}
+
+.user-input-image {
+    width: 200px;
+    border-radius: 5px;
 }
 </style>

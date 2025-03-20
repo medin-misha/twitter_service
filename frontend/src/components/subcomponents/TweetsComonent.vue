@@ -25,5 +25,8 @@ onMounted(() => { getTweets() })
 <style scoped>
 .comments {
     flex-direction: column;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    height: 740px;
 }
 </style>
