@@ -17,8 +17,12 @@ onMounted(() => { getTweets() })
 
 <template>
     <section class="flex comments">
-        <TweetComponent v-for="tweet in tweets" :id="tweet.id" :text="tweet.content" :name="tweet.author.name"
-            v-bind:key="tweet.id" />
+        <TweetComponent v-for="tweet in tweets" 
+        :id="tweet.id" 
+        :text="tweet.content" 
+        :name="tweet.author.name"
+        :attachements="tweet.attachments"
+        v-bind:key="tweet.id" />
     </section>
 </template>
 

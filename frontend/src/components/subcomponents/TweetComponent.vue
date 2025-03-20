@@ -1,13 +1,14 @@
 <script setup>
 import { ref } from "vue";
-
+import { useAPIStore } from "@/stores/useAPIStore";
 const props = defineProps({
     id: Number,
     name: String,
     text: String,
-    // liked: Boolean
+    attachements: Array
 })
 
+const apiStore = useAPIStore()
 const noLikeColor = ref("#36434d")
 const isLikeColor = ref("#dd1818")
 const likeColor = ref("#36434d")
@@ -31,6 +32,7 @@ const Liked = () => {
         </div>
         <div class="content">
             <p class="text">{{ text }}</p>
+            <img class="tweet-img" v-if="attachements.length > 0" :src="apiStore.url + 'api/medias/' + attachements[0]"> 
         </div>
         <div class="flex actions">
             <svg class="like" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
@@ -72,5 +74,9 @@ const Liked = () => {
 
 .author-data {
     justify-content: space-between;
+}
+.tweet-img { 
+    width: 400px;
+    border-radius: 5px;
 }
 </style>

@@ -37,6 +37,13 @@ export const useAPIStore = defineStore("api", {
       formData.append("file", file);
       const response = await axios.post(this.url + "api/medias", formData, { headers: {"Content-Type": "multipart/form-data", "api-key": key} });
       return response.data;
+    },
+    async getMedia(media_key) {
+      const response = await axios.get(this.url + "api/medias/" + media_key[0], {
+        responseType: "blob",
+      })
+      console.log(response)
+      return URL.createObjectURL(response.data)
     }
   },
 });
