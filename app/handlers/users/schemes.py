@@ -21,3 +21,4 @@ class OneUser(BaseModel):
     following: list | None = None
     followers: list | None = None
     tweets: list | None = None
+    tweets_i_liked: list | None = None

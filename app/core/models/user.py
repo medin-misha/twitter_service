@@ -17,7 +17,7 @@ class User(Base):
         back_populates="autor", lazy="selectin", uselist=True
     )
     likes: Mapped[list["Tweet"]] = relationship(
-        back_populates="likes", uselist=True, secondary="usersliketweets"
+        back_populates="likes", uselist=True, secondary="usersliketweets", lazy="selectin"
     )
     followers: Mapped[List["User"]] = relationship(
         back_populates="following",

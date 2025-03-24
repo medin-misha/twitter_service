@@ -36,6 +36,7 @@ async def get_user_by_id(session: AsyncSession, id: int) -> OneUser | None:
         .options(selectinload(User.followers))
         .options(selectinload(User.following))
         .options(selectinload(User.tweets))
+        .options(selectinload(User.likes))
         .where(User.id == id)
     )
     user = result.scalar()
@@ -51,4 +52,7 @@ async def get_user_by_id(session: AsyncSession, id: int) -> OneUser | None:
         following=[
             {"id": following.id, "name": following.name} for following in user.following
         ],
+        tweets_i_liked=[
+            tweet.id for tweet in user.likes
+        ]
     )
