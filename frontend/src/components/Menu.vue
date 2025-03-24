@@ -1,11 +1,17 @@
 <script setup>
 import LoginComponent from './subcomponents/LoginComponent.vue';
+import { useMainComponentStore } from "./componentStores/mainComponentStore.js"
+import { storeToRefs } from 'pinia';
+
+const mainStore = useMainComponentStore()
+
 </script>
 
 <template >
     <nav class="flex navbar">
-        <li class="navbar-li flex navbar-main"><span class="navbar-li-span">Главная</span></li>
-        <li class="navbar-li flex navbar-profile"><span class="navbar-li-span">Профиль</span></li>
+        <li class="navbar-li flex navbar-main" @click="mainStore.hideAndShowTweets(true)"><span class="navbar-li-span">Главная</span></li>
+        <li class="navbar-li flex navbar-users" @click="mainStore.hideAndShowTweets(false)"><span class="navbar-li-span">Пользователи</span></li>
+        <li class="navbar-li flex navbar-tweets" @click="mainStore.hideAndShowTweets(true)"><span class="navbar-li-span">Твиты</span></li>
         <button class="create-tweet-button">Твитнуть</button>
         <LoginComponent/>
     </nav>
@@ -29,6 +35,7 @@ import LoginComponent from './subcomponents/LoginComponent.vue';
         transition: border 0.3s ease;
         background-position-y: 24px;
         border-bottom: #36434d solid 2px;
+        cursor: pointer;
 
     }
     .navbar-main {
@@ -36,8 +43,13 @@ import LoginComponent from './subcomponents/LoginComponent.vue';
         background-position-x: right;
         
     }
-    .navbar-profile {
+    .navbar-users {
         background: url("public/profileIcon.svg") no-repeat;
+        background-position-x: right;
+    
+    }
+    .navbar-tweets {
+        background: url("public/tweetIcon.svg") no-repeat;
         background-position-x: right;
     
     }
