@@ -22,6 +22,7 @@ onMounted(() => { getTweets() })
         :text="tweet.content" 
         :name="tweet.author.name"
         :attachements="tweet.attachments"
+        :autor_id="tweet.author.id"
         v-bind:key="tweet.id" />
     </section>
 </template>

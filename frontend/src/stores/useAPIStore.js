@@ -43,7 +43,8 @@ export const useAPIStore = defineStore("api", {
     async like(id, key) {
       const response = await axios.post(
         this.url + "api/tweets/" + id + "/likes",
-        {}, {
+        {},
+        {
           headers: { "api-key": key },
         }
       );
@@ -51,11 +52,17 @@ export const useAPIStore = defineStore("api", {
     },
     async likeDelete(id, key) {
       const response = await axios.delete(
-        this.url + "api/tweets/" + id + "/likes", 
+        this.url + "api/tweets/" + id + "/likes",
         {
           headers: { "api-key": key },
         }
       );
+      return response.data;
+    },
+    async deleteTweet(id, key) {
+      const response = await axios.delete(this.url + "api/tweets/" + id, {
+        headers: { "api-key": key },
+      });
       return response.data;
     },
   },
