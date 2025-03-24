@@ -66,13 +66,20 @@
 ## 🧪 Как тестировать?  
 1. Запустите тестовую базу данных:  
    ```bash
-   docker-compose -f docker-compose.postgres_test.yml up -d
+   docker-compose up --build postgres image_saver
    ```  
-2. Примените миграции:  
+2. Примените миграции (если требуеться):  
    ```bash
    alembic upgrade head
    ```  
-3. Запустите тесты:  
+3. Установите переменные окружения:
+  ```bash
+	export postgres_user=postgres_user
+  export postgres_password=postgres_password
+  export postgres_host=192.168.5.197:5432/postgres_db
+  export image_service_host=http://192.168.5.197:9000/
+  ```
+4. Запустите тесты:  
    ```bash
    pytest tests/
    ```  
