@@ -18,15 +18,17 @@ const getMeApiKey = async (key) => {
     if (meResponse != null) {
         const result = meResponse.result;
         if (result == true) {
-            const userName = meResponse.user.name;
+            console.log(meResponse.user.name, meResponse.user.tweets_i_liked, key)
+            refStore.userName.value = meResponse.user.name
+            refStore.myLikes.value = meResponse.user.tweets_i_liked
             refStore.key.value = key;
-            refStore.userName = userName
             componentStore.successLogin()
         }
         return null;
     } else {
         componentStore.errorLogin()
     }
+    
 
 }
 

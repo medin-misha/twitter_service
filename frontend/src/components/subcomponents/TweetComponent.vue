@@ -1,6 +1,11 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useAPIStore } from "@/stores/useAPIStore";
+import { useLoginStore } from "@/stores/useLoginStore";
+import { storeToRefs } from "pinia";
+
+const apiStore = useAPIStore()
+const loginStore = storeToRefs(useLoginStore())
 const props = defineProps({
     id: Number,
     name: String,
@@ -8,27 +13,36 @@ const props = defineProps({
     attachements: Array
 })
 
-const apiStore = useAPIStore()
 const noLikeColor = ref("#36434d")
 const isLikeColor = ref("#dd1818")
 const likeColor = ref("#36434d")
-const liked = ref(props.liked)
-const Liked = () => {
+const liked = ref(false)
+
+
+const Liked = async () => {
     if (liked.value) {
+        const response = await apiStore.likeDelete(props.id, loginStore.key.value)
         liked.value = false;
         likeColor.value = noLikeColor.value;
+        
     } else {
+        const response = await apiStore.like(props.id, loginStore.key.value)
         liked.value = true;
         likeColor.value = isLikeColor.value;
     }
 }
+watch(() => loginStore.key.value, () => {
+    liked.value = loginStore.myLikes.value.includes(props.id) ? true : false
+    if (liked.value) likeColor.value = isLikeColor.value;
+})
 </script>
 
 <template>
     <article class="flex comment">
         <div class="flex author-data">
             <h3>{{ name }}</h3>
-            <h4>N: {{ id }}</h4>
+            <h4>Id: {{ id }}</h4>
+            
         </div>
         <div class="content">
             <p class="text">{{ text }}</p>
