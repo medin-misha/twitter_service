@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useAPIStore = defineStore("api", {
   state: () => ({
-    url: "http://127.0.0.1:8000/",
+    url: "http://localhost:8000/",
   }),
   actions: {
     async me(key) {

@@ -23,7 +23,7 @@ export const useTweetFormComponentStore = defineStore("tweetFormComponent", {
       const response = await this.apiStore.createTweet(
         {
           tweet_data: this.tweet_data,
-          tweet_media_ids: tweet_data_id.result ? [tweet_data_id.media_id] : [],
+          tweet_media_ids: tweet_data_id ? [tweet_data_id.media_id] : [],
         },
         this.key
       );

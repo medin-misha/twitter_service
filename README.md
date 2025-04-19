@@ -29,7 +29,7 @@ export postgres_user=postgres_user
 export postgres_password=postgres_password
 export postgres_host=<твой_ip_или_ip_postgres>:5432/postgres_db
 
-export image_service_host=http://192.168.5.197:9000/
+export image_service_host=<твой_ip_или_ip_image_saver>:9000/
 
 # Выполнение миграций
 alembic upgrade head
